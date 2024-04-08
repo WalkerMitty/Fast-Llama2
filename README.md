@@ -7,7 +7,9 @@
     - 推理输出文本的同时输出权重
     - 修改了scheduler逻辑，只有当loss增加时才减小lr
 
-## step1: 数据构建
+## step1: 数据构建与环境准备
+环境为python3.9，其余环境见requirements.txt
+
 指令微调数据集是一系列的question, answer 对，只需要将question和answer填入下面模板（见/data/demo*.json)
 ```json
 [{"conversations": [{"from": "human", "value": "QUESTION1"}, {"from": "gpt", "value": "ANSWER1"}]}]
@@ -33,7 +35,7 @@ bash run_infer_logit.sh  #输出logit
 - lr比较重要，我在不同的数据集上采用的是1e-3,1e-4,1e-5,1e-6
 - output_dir loras权重存储位置
 - train_split 训练集的路径
-- batch_size_training 根据自己的显存改
+- batch_size_training 根据自己的显存改，注意数据量必须  >= batch_size_training* num_gpus
 - lora_path 如果为空字符串，则自动初始化权重。否则将加载这个lora路径继续训练
 - step size 控制改变lr的频率的，如果step size为1，则每个epoch结束后判断是否需要减小lr
 ```shell
