@@ -49,7 +49,7 @@ CUDA_VISIBLE_DEVICES=4,5,6,7 nohup torchrun --nnodes 1 --nproc_per_node 4 --mast
 	--dist_checkpoint_root_folder model_checkpoints \
 	--dist_checkpoint_folder fine-tuned \
 	--fsdp_config.pure_bf16 \
-	--lr 5e-6 \
+	--lr 5e-5 \
 	--output_dir loras/decisioner-100-epoch60-prompt \
 	--train_split ./data/demo_train.json \
 	--batch_size_training 128 \
