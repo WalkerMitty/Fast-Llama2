@@ -5,7 +5,9 @@
     - Output logits during inference
     - Modified scheduler logic to decrease learning rate only when loss increases
 
-## step1: Data Preparation
+## step1: Data Preparation && Environment
+Python==3.9  others in requirements.txt
+
 SFT dataset consists of a series of question-answer pairs. Simply fill in the questions and answers in the template below (see /data/demo*.json).
 ```json
 [{"conversations": [{"from": "human", "value": "QUESTION1"}, {"from": "gpt", "value": "ANSWER1"}]}]
@@ -34,6 +36,7 @@ Here are the details of run_test.sh:
 - ``output_dir`` is where Lora weights are stored.
 - If ``lora_path`` is an empty string, weights will be automatically initialized. Otherwise, it will load weights from this Lora path for continued training.
 - ``step size`` controls the frequency of lr changes. If ``step size`` is 1, lr will be evaluated for decrease after each epoch.
+- dataset size should larger than ``batch_size_training`` * num_gpus
 ```shell
 CUDA_VISIBLE_DEVICES=4,5,6,7 nohup torchrun --nnodes 1 --nproc_per_node 4 --master_port 29504 finetuning.py \
 	--enable_fsdp  \
